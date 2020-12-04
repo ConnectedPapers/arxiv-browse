@@ -1,8 +1,6 @@
 // toggle logic for arXivLabs integrations
 $(document).ready(function() {
 
-  console.log("Loaded");
-
   jQuery.cachedScript = function(url, options) {
     // Allow user to set any option except for dataType, cache, and url
     options = $.extend(options || {}, {
