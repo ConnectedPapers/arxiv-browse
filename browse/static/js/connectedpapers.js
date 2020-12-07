@@ -1,6 +1,4 @@
-console.log("GERE2");
 (function () {
-  console.log("GERE");
   const REST_ADDR = 'https://rest.migration.connectedpapers.com/';
   const CONNECTED_PAPERS_ADDR = 'https://www.connectedpapers.com/';
   const ARXIV_THUMBNAILS_ADDR = CONNECTED_PAPERS_ADDR + 'arxiv_thumbnails/';
