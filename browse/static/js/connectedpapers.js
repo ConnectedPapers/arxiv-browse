@@ -32,10 +32,10 @@
       var graphNotVisual = '<p>paper ' + title + ' not parsed yet. Please try again in a few days.</p>';
 
       function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
+        return Math.floor(Math.random() * (max + 1));
       }
 
-      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + getRandomInt(NUMBER_OF_THUMBNAILS + 1) + '.jpg';
+      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + getRandomInt(NUMBER_OF_THUMBNAILS) + '.jpg';
       var choserGraphHtml = '<img src="' + chosenGraph + '" alt="Example graph image" width="120" height="100">';
 
       var containerDivStyle = '"display: flex; flex-flow: row; padding: 24px 10px;"';
