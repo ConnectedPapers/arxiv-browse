@@ -11,7 +11,6 @@
   
   
   $.get(arxivIdToCPIdUrl).done(translationResponse => {
-    console.log("AAA");
     if (translationResponse == null) {
       $output.html(idNotRecognizedHtml);
       return;
@@ -26,10 +25,7 @@
 
     var versionsFetchUrl = REST_ADDR + '?versions=' + paperId;
 
-    console.log("BBB");
-    
     $.get(versionsFetchUrl).done(versionsResponse => {
-      console.log("CCC");
       const NUMBER_OF_THUMBNAILS = 18;
       
       var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/graph';
