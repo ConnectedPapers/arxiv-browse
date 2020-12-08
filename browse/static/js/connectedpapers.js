@@ -4,6 +4,7 @@
   const ARXIV_THUMBNAILS_ADDR = CONNECTED_PAPERS_ADDR + 'arxiv_thumbnails/';
   
   var $output = $('#connectedpapers-output');
+  $output.html('<p>Loading...</p>');
   var arxivId = window.location.pathname.split('/').reverse()[0];
   var arxivIdToCPIdUrl = REST_ADDR + '?arxiv=' + arxivId;
   var communicationErrorHtml = '<p>Oops, seems like communiation with the Connected Papers server is down.</p>';
@@ -29,8 +30,10 @@
       const NUMBER_OF_THUMBNAILS = 18;
       
       var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/graph';
-      var buildGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + title + '.</p></a>';
-      var seeGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + title + '.</p></a>';
+      var buildGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + 
+                                title + '.</p></a>';
+      var seeGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' +
+                              title + '.</p></a>';
       var graphNotVisual = '<p>Seems like ' + title + ' is still not in our database. Please try again in a few days.</p>';
 
       function getRandomInt(maxExcluded) {
@@ -38,10 +41,12 @@
       }
 
       var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + getRandomInt(NUMBER_OF_THUMBNAILS) + '.jpg';
-      var choserGraphHtml = '<img src="' + chosenGraph + '" alt="Example graph image" width="120" height="100">';
+      var choserGraphHtml = '<a href="' + graphUrl + '" target="_blank"><img src="' + chosenGraph +
+                            '" alt="Example graph image" width="120" height="100" style="border: 1px solid #D2D2D2;"></a>';
 
       var containerDivStyle = '"display: flex; flex-flow: row; padding: 24px 10px;"';
-      var infoLine = '<p style="font-size: 12px; opacity: 0.5; margin-top: 0; margin-bottom: 10px;">Find and explore related papers in a visual graph</p>';
+      var infoLine = '<p style="font-size: 12px; opacity: 0.5; margin-top: 0; margin-bottom: 10px;">Find and explore' +
+                      'related papers in a visual graph</p>';
 
       var textDivOpen = '<div style="display: flex; flex-flow: column; padding: 0px 25px;">';
       var buildGraphTextDiv = textDivOpen + infoLine + buildGraphLinkHtml + '</div>';
