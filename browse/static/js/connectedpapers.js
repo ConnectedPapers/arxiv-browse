@@ -37,8 +37,8 @@
       var seeGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + title + '.</p></a>';
       var graphNotVisual = '<p>Seems like ' + title + ' is still not in our database. Please try again in a few days.</p>';
 
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * (max + 1));
+      function getRandomInt(maxExcluded) {
+        return Math.floor(Math.random() * maxExcluded);
       }
 
       var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + getRandomInt(NUMBER_OF_THUMBNAILS) + '.jpg';
