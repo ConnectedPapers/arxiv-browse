@@ -1,10 +1,15 @@
 (function () {
+  var $output = $('#connectedpapers-output');
+  if ($output.html() != '') {
+    $output.html('');
+    return;
+  }
+
+  $output.html('<p>Loading...</p>');
   const REST_ADDR = 'https://rest.migration.connectedpapers.com/';
   const CONNECTED_PAPERS_ADDR = 'https://www.connectedpapers.com/';
   const ARXIV_THUMBNAILS_ADDR = CONNECTED_PAPERS_ADDR + 'arxiv_thumbnails/';
   
-  var $output = $('#connectedpapers-output');
-  $output.html('<p>Loading...</p>');
   var arxivId = window.location.pathname.split('/').reverse()[0];
   var arxivIdToCPIdUrl = REST_ADDR + '?arxiv=' + arxivId;
   var communicationErrorHtml = '<p>Oops, seems like communiation with the Connected Papers server is down.</p>';
@@ -12,6 +17,10 @@
   
   
   $.get(arxivIdToCPIdUrl).done(translationResponse => {
+    if ($output.html() == '') {
+      // Toggled off
+      return;
+    }
     if (translationResponse == null) {
       $output.html(idNotRecognizedHtml);
       return;
@@ -27,13 +36,18 @@
     var versionsFetchUrl = REST_ADDR + '?versions=' + paperId;
 
     $.get(versionsFetchUrl).done(versionsResponse => {
+      if ($output.html() == '') {
+        // Toggled off
+        return;
+      }
+
       const NUMBER_OF_THUMBNAILS = 18;
       
       var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/graph';
       var buildGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + 
-                                title + '.</p></a>';
+                                title + '</p></a>';
       var seeGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' +
-                              title + '.</p></a>';
+                              title + '</p></a>';
       var graphNotVisual = '<p>Seems like ' + title + ' is still not in our database. Please try again in a few days.</p>';
 
       // A string to int hash algorithm
