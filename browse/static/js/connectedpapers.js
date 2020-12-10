@@ -1,5 +1,6 @@
 (function () {
   var $output = $('#connectedpapers-output');
+
   if ($output.html() != '') {
     // Toggled off
     $output.html('');
@@ -7,9 +8,11 @@
   }
 
   $output.html('<p>Loading...</p>');
+
   const REST_ADDR = 'https://rest.migration.connectedpapers.com/';
   const CONNECTED_PAPERS_ADDR = 'https://www.connectedpapers.com/';
   const ARXIV_THUMBNAILS_ADDR = CONNECTED_PAPERS_ADDR + 'arxiv_thumbnails/';
+  const NUMBER_OF_THUMBNAILS = 18;
   
   var arxivId = window.location.pathname.split('/').reverse()[0];
   var arxivIdToCPIdUrl = REST_ADDR + '?arxiv=' + arxivId;
@@ -20,7 +23,6 @@
   $.get(arxivIdToCPIdUrl).done(translationResponse => {
     if ($output.html() == '') {
       // Toggled off
-      $output.html('');
       return;
     }
     if (translationResponse == null) {
@@ -40,12 +42,9 @@
     $.get(versionsFetchUrl).done(versionsResponse => {
       if ($output.html() == '') {
         // Toggled off
-        $output.html('');
         return;
       }
 
-      const NUMBER_OF_THUMBNAILS = 18;
-      
       var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/graph';
       var buildGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + 
                                 title + '</p></a>';
@@ -67,7 +66,7 @@
         return 4294967296 * (2097151 & h2) + (h1>>>0);
       };
 
-      var selected_graph_num = cyrb53(arxivId) & NUMBER_OF_THUMBNAILS;
+      var selected_thumbnail_num = cyrb53(arxivId) & NUMBER_OF_THUMBNAILS;
 
       var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + selected_graph_num + '.jpg';
       var choserGraphHtml = '<a href="' + graphUrl + '" target="_blank"><img src="' + chosenGraph +
@@ -85,23 +84,28 @@
       var seeGraphHtml = '<div style=' + containerDivStyle + '>' + choserGraphHtml + seeGraphTextDiv + '</div>';
 
       if (versionsResponse == null) {
+        // Graph not yet built ever
         $output.html(buildGraphHtml);
         return;
       }
       var versionsData = versionsResponse.result_dates;
       if (versionsData.length == 0) {
+        // Graph not yet built ever
         $output.html(buildGraphHtml);
         return;
       }
       var mostRecentVersion = versionsData[versionsData.length - 1];
       if (mostRecentVersion.visual) {
+        // Graph already built, ready to be shown
         $output.html(seeGraphHtml);
         return;
       }
       if (versionsResponse.rebuild_available) {
+        // Graph non-available, but rebuild available
         $output.html(buildGraphHtml);
         return;
       }
+      // Graph non-available
       $output.html(graphNotVisual);
     }).fail(versionsResponse => {
       $output.html(communicationErrorHtml);
