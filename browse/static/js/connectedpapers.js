@@ -68,7 +68,7 @@
 
       var selected_thumbnail_num = cyrb53(arxivId) & NUMBER_OF_THUMBNAILS;
 
-      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + selected_graph_num + '.jpg';
+      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + selected_thumbnail_num + '.jpg';
       var choserGraphHtml = '<a href="' + graphUrl + '" target="_blank"><img src="' + chosenGraph +
                             '" alt="Example graph image" width="120" height="100" style="border: 1px solid #D2D2D2;"></a>';
 
