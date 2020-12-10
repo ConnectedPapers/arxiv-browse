@@ -36,11 +36,23 @@
                               title + '.</p></a>';
       var graphNotVisual = '<p>Seems like ' + title + ' is still not in our database. Please try again in a few days.</p>';
 
-      function getRandomInt(maxExcluded) {
-        return Math.floor(Math.random() * maxExcluded);
-      }
+      // A string to int hash algorithm
+      // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+      function cyrb53(str, seed = 0) {
+        var h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+        for (var i = 0, ch; i < str.length; i++) {
+          var ch = str.charCodeAt(i);
+          var h1 = Math.imul(h1 ^ ch, 2654435761);
+          var h2 = Math.imul(h2 ^ ch, 1597334677);
+        }
+        h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+        h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+        return 4294967296 * (2097151 & h2) + (h1>>>0);
+      };
 
-      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + getRandomInt(NUMBER_OF_THUMBNAILS) + '.jpg';
+      var selected_graph_num = cyrb53(arxivId) & NUMBER_OF_THUMBNAILS;
+
+      var chosenGraph = ARXIV_THUMBNAILS_ADDR + 'g' + selected_graph_num + '.jpg';
       var choserGraphHtml = '<a href="' + graphUrl + '" target="_blank"><img src="' + chosenGraph +
                             '" alt="Example graph image" width="120" height="100" style="border: 1px solid #D2D2D2;"></a>';
 
