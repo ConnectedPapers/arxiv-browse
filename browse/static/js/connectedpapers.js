@@ -1,6 +1,7 @@
 (function () {
   var $output = $('#connectedpapers-output');
   if ($output.html() != '') {
+    // Toggled off
     $output.html('');
     return;
   }
@@ -19,6 +20,7 @@
   $.get(arxivIdToCPIdUrl).done(translationResponse => {
     if ($output.html() == '') {
       // Toggled off
+      $output.html('');
       return;
     }
     if (translationResponse == null) {
@@ -38,6 +40,7 @@
     $.get(versionsFetchUrl).done(versionsResponse => {
       if ($output.html() == '') {
         // Toggled off
+        $output.html('');
         return;
       }
 
