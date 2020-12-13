@@ -45,7 +45,7 @@
         return;
       }
 
-      var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/graph';
+      var graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/arxiv';
       var buildGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' + 
                                 title + '</p></a>';
       var seeGraphLinkHtml = '<a href="' + graphUrl + '" target="_blank"><p style="margin:0;">View graph for ' +
