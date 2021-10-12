@@ -115,7 +115,6 @@
         $output.html(htmlPrefix + buildGraphHtml);
         return;
       }
-      console.log(versionsResponse);
       const versionsData = versionsResponse.graph_versions;
       if (versionsData.length == 0) {
         // Graph not yet built ever
