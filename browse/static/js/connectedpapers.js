@@ -36,21 +36,17 @@
       // Toggled off
       return;
     }
-    console.log("l-39");
     if (translationResponse == null) {
       $output.html(htmlPrefix + idNotRecognizedHtml);
       return;
     }
-    console.log("l-44");
     const paperId = translationResponse.paperId;
     const title = translationResponse.title;
-    console.log("l-47");
 
     if (paperId.length == 0 || title.length == 0) {
       $output.html(htmlPrefix + idNotRecognizedHtml);
       return;
     }
-    console.log("l-53");
 
     const versionsFetchUrl = REST_ADDR + 'versions/' + paperId + '/1';
 
@@ -59,7 +55,6 @@
         // Toggled off
         return;
       }
-      console.log("l-62");
 
       const graphUrl = CONNECTED_PAPERS_ADDR + 'main/' + paperId + '/arxiv';
       
@@ -68,7 +63,6 @@
       // Not enough references and citations parsed to build a graph
       const graphNotVisual = '<p>Seems like this paper is still not in our database. Please try again in a few' +
                              ' days.</p>';
-      console.log("l-71");
 
       // A string to int hash algorithm
       // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
@@ -83,7 +77,6 @@
         h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
         return 4294967296 * (2097151 & h2) + (h1>>>0);
       };
-      console.log("l-86");
 
       const selectedThumbnailNum = Math.abs(cyrb53(arxivId)) % NUMBER_OF_THUMBNAILS;
 
@@ -97,7 +90,6 @@
                                   paperTitleHtml +
                                 '</div>';
 
-      console.log("l-100");
       const buildGraphHtml =  '<div id="connectedpapers-width-limiter">' +
                                 '<a id="connectedpapers-link" href="' +graphUrl + '" target="_blank">' +
                                   '<div id="connectedpapers-container">' +
@@ -109,7 +101,6 @@
       // Future compatability - different message for built graphs
       const seeGraphHtml = buildGraphHtml;
 
-      console.log("l-112");
       if (versionsResponse == null) {
         // Graph not yet built ever
         $output.html(htmlPrefix + buildGraphHtml);
@@ -121,7 +112,6 @@
         $output.html(htmlPrefix + buildGraphHtml);
         return;
       }
-      console.log("l-124");
       const mostRecentVersion = versionsData[versionsData.length - 1];
       if (mostRecentVersion.visual) {
         // Graph already built, ready to be shown
@@ -133,17 +123,12 @@
         $output.html(htmlPrefix + buildGraphHtml);
         return;
       }
-      console.log("l-136");
       // Graph non-available
       $output.html(graphNotVisual);
-      console.log("l-139");
     }).fail(versionsResponse => {
       $output.html(htmlPrefix + communicationErrorHtml);
-      console.log("l-142");
     })
   }).fail(translationResponse => {
     $output.html(htmlPrefix + communicationErrorHtml);
-    console.log("l-146");
   });
-  console.log("l-148");
 })();
