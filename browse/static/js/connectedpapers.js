@@ -107,7 +107,6 @@
         return;
       }
       const versionsData = versionsResponse.graph_versions;
-      console.log(versionsData);
       if (versionsData.length == 0) {
         // Graph not yet built ever
         $output.html(htmlPrefix + buildGraphHtml);
