@@ -114,7 +114,7 @@
         return;
       }
       const mostRecentVersion = versionsData[versionsData.length - 1];
-      if (mostRecentVersion.visual) {
+      if (mostRecentVersion.is_visual) {
         // Graph already built, ready to be shown
         $output.html(htmlPrefix + seeGraphHtml);
         return;
